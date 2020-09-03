@@ -60,9 +60,10 @@ export default function TemplatePartEdit( {
 		}
 	}, [ innerBlocks ] );
 
+	const BlockWrapper = Block[ tagName ];
+
 	if ( postId ) {
 		// Part of a template file, post ID already resolved.
-		const BlockWrapper = Block[ tagName ];
 		return (
 			<BlockWrapper>
 				<BlockControls>
@@ -80,7 +81,11 @@ export default function TemplatePartEdit( {
 	}
 	if ( ! initialSlug.current && ! initialTheme.current ) {
 		// Fresh new block.
-		return <TemplatePartPlaceholder setAttributes={ setAttributes } />;
+		return (
+			<BlockWrapper>
+				<TemplatePartPlaceholder setAttributes={ setAttributes } />
+			</BlockWrapper>
+		);
 	}
 	// Part of a template file, post ID not resolved yet.
 	return null;
